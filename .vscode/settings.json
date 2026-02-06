@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "config.h": "c",
+        "app_config.h": "c",
+        "bignum.h": "c",
+        "printf.h": "c",
+        "stdbool.h": "c",
+        "stdint.h": "c",
+        "board_ac636n_demo_cfg.h": "c",
+        "board_ac6368b_dongle_cfg.h": "c",
+        "usb_std_class_def.h": "c",
+        "fs.h": "c",
+        "ble_trans_profile.h": "c",
+        "includes.h": "c",
+        "ble_trans.h": "c",
+        "sc_lcd.h": "c",
+        "sc_event_task.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "demon_eye.h": "c",
+        "eyelid_lut.h": "c"
+    }
+}
