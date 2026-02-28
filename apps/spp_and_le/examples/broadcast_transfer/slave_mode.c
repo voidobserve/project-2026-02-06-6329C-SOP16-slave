@@ -309,7 +309,8 @@ static void on_adv_report_received(adv_report_t *report)
     
     // 解析 BLE 广播包
     const struct ble_adv_packet *pkt = (const struct ble_adv_packet *)report->data;
-    
+
+#if 0
     // 校验 CRC-8
     u8 calculated_crc8 = user_crc8_calc((const u8 *)pkt, 30);
     if (calculated_crc8 != pkt->crc8) {
@@ -322,6 +323,7 @@ static void on_adv_report_received(adv_report_t *report)
         g_assembler.stat_id_mismatch++;
         return;  // 静默丢弃批次ID不匹配包
     }
+#endif
 
     is_app_slave_mode_active = 1;
     // 处理数据包

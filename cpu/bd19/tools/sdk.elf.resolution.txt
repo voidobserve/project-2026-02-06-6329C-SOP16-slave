@@ -3551,8 +3551,6 @@ objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o
 -r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,syscfg_read,l
 -r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,ble_gatt_client_set_search_config,l
 -r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,ble_gatt_client_set_scan_config,l
--r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,user_crc8_calc,l
--r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,batch_id_match,l
 -r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,jiffies_msec,l
 -r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,crc16_calc,l
 -r=objs/apps/spp_and_le/examples/broadcast_transfer/slave_mode.c.o,clr_wdt,l
