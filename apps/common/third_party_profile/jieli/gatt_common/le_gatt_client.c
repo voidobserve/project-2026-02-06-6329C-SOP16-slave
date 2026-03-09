@@ -1308,11 +1308,27 @@ static void __gatt_client_report_adv_data(adv_report_t *report_pt, u16 len)
 
 #else
 
+    // if (report_pt->rssi >= 60)
+    // {
+    //     printf("recv buf\n");
+    //     // printf_buf(report_pt->data, report_pt->length);
+    // }
+
+    // if (report_pt->rssi >= 50)
+    // {
+    //     printf("report_pt->length == %u\n", (u16)report_pt->length);
+    //     printf_buf(report_pt->data, report_pt->length);
+    // }
+    
+
     if (!__this->gatt_search_config || !__this->gatt_search_config->match_devices_count) {
         /*没有加指定搜索,直接输出adv report*/
         // putchar('~');
         if (report_pt->length == 31)
         {
+            // printf("rssi == %d\n", (int)report_pt->rssi);
+            // printf("report_pt->length == %u\n", (u16)report_pt->length);
+            // printf_buf(report_pt->data, report_pt->length);
             extern void on_adv_report_received_api(adv_report_t * report);
             on_adv_report_received_api(report_pt);
         }

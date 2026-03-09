@@ -21,11 +21,11 @@
 #define SEQ_RESET_THRESHOLD         1000    // 序列号复位检测阈值
 
 // 广播配置
-#define ADV_PACKET_DURATION_MS      100     // 每包广播持续时间 (ms): 时间要保证多设备接收
+#define ADV_PACKET_DURATION_MS      200     // 每包广播持续时间 (ms): 时间要保证多设备接收
 #define MAX_PAYLOAD_SIZE            608     // 最大载荷大小 (32包 × 19字节/包 = 608字节)
 
 // 扫描超时配置
-#define REASSEMBLY_TIMEOUT_MS       500    // 单包超时时间 (ms)
+#define REASSEMBLY_TIMEOUT_MS       1000    // 单包超时时间 (ms)
 
 // UART 配置
 #define UART_BAUD_RATE              115200  // UART 波特率

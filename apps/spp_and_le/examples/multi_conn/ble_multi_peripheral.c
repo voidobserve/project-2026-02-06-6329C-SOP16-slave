@@ -385,6 +385,9 @@ static int multi_att_write_callback(hci_con_handle_t connection_handle, uint16_t
         // put_buf(buffer, buffer_size);
         // rx_update_file_write(buffer, buffer_size);
         // log_info("rx_write finished: %d", rx_update_file_get_size());
+
+        // 
+
         extern void slave_mode_uart_tx_data(const u8 * data, u16 len);
         slave_mode_uart_tx_data(buffer, buffer_size);
 

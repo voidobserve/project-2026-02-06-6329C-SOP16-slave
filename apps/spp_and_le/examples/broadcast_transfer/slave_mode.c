@@ -310,20 +310,20 @@ static void on_adv_report_received(adv_report_t *report)
     // 解析 BLE 广播包
     const struct ble_adv_packet *pkt = (const struct ble_adv_packet *)report->data;
 
-#if 0
+
     // 校验 CRC-8
     u8 calculated_crc8 = user_crc8_calc((const u8 *)pkt, 30);
     if (calculated_crc8 != pkt->crc8) {
         g_assembler.stat_crc8_err++;
         return;  // 静默丢弃CRC错误包
     }
-    
+#if 0
     // 校验批次 ID
     if (!batch_id_match(pkt->batch_id, g_local_batch_id)) {
         g_assembler.stat_id_mismatch++;
         return;  // 静默丢弃批次ID不匹配包
     }
-#endif
+#endif 
 
     is_app_slave_mode_active = 1;
     // 处理数据包
@@ -406,10 +406,12 @@ static void process_packet(const struct ble_adv_packet *pkt)
         //          pkt->seq_num, pkt->pkt_idx, g_assembler.recv_mask);
         return;
     }
-    
+
+#if 1
+
     // 存储数据包 (修正: 每包payload是19字节,不是20)
     if (pkt->pkt_idx < g_assembler.total_pkts) {
-        u16 offset = pkt->pkt_idx * 19;  // 修正offset计算
+        u16 offset = (u16)pkt->pkt_idx * 19;  // 修正offset计算
         if (offset + pkt->data_len <= MAX_PAYLOAD_SIZE) {
             is_app_slave_mode_active = 1;
 
@@ -424,16 +426,18 @@ static void process_packet(const struct ble_adv_packet *pkt)
             // 重置超时计时器 (单包超时机制: 每收到一个包就重置)
             g_assembler.start_time = sys_time_get();
             
-            // LOG_SLAVE("Packet %d/%d stored at offset %d, mask=0x%X\n",
-            //          pkt->pkt_idx + 1, pkt->total_pkts, offset, g_assembler.recv_mask);
+            LOG_SLAVE("Packet %d/%d stored at offset %d, mask=0x%X\n",
+                     pkt->pkt_idx + 1, pkt->total_pkts, offset, g_assembler.recv_mask);
+            printf_buf(pkt->data, pkt->data_len);
         }
-    }
+    }      
     
     // 检查是否接收完整
     u32 complete_mask = (1 << g_assembler.total_pkts) - 1;
     if (g_assembler.recv_mask == complete_mask) {
         handle_assembly_complete();
     }
+#endif
 }
 
 /**
@@ -514,6 +518,7 @@ static void forward_complete_data(const u8 *data, u16 len)
         return;
     }
     
+#if 0
     // 构造 UART 帧
     u8 frame[MAX_PAYLOAD_SIZE + 6];  // header(1) + len(2) + data + crc(2)
     
@@ -532,6 +537,13 @@ static void forward_complete_data(const u8 *data, u16 len)
     
     // LOG_SLAVE("UART TX: %d bytes", len);
     log_info_hexdump(frame, 3 + len + 2);
+#endif
+
+    // 发送
+    g_uart_tx_bus->write(data, len);
+    
+    LOG_SLAVE("UART TX: %d bytes", len);
+    log_info_hexdump(data, len);
 }
 
 /**
