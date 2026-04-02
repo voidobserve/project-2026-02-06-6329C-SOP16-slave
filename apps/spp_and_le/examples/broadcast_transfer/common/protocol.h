@@ -28,7 +28,7 @@
 #define REASSEMBLY_TIMEOUT_MS       1000    // 单包超时时间 (ms)
 
 // UART 配置
-#define UART_BAUD_RATE              115200  // UART 波特率
+#define UART_BAUD_RATE              9600  // UART 波特率
 #define UART_TX_PIN                 IO_PORTB_06  // UART TX 引脚
 #define UART_RX_PIN                 IO_PORTB_07  // UART RX 引脚
 #define UART_RX_BUF_SIZE            512     // UART 接收缓冲区大小
