@@ -553,8 +553,8 @@ static void slave_mode_uart_rx_complete_data(const u8 *data, u16 len)
 {
     extern void multi_att_notify_buffer(uint8_t * buffer, uint16_t buffer_size);
 
-    if (data[0] == 0x55)
-        multi_att_notify_buffer(data, len);
+    // if (data[0] == 0x55)
+    multi_att_notify_buffer(data, len);
 }
 void slave_mode_uart_tx_data(const u8 *data, u16 len)
 {
