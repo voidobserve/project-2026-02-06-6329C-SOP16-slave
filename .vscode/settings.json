@@ -19,5 +19,8 @@
         "stdlib.h": "c",
         "demon_eye.h": "c",
         "eyelid_lut.h": "c"
-    }
+    },
+    "taskManager.favorites": [
+        "project-2026-02-06-6329C-SOP16-slave/Workspace/ac632n_spp_and_le"
+    ]
 }
