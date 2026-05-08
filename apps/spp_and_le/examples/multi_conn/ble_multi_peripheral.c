@@ -333,6 +333,36 @@ static int multi_att_write_callback(hci_con_handle_t connection_handle, uint16_t
     switch (handle) {
 
     case ATT_CHARACTERISTIC_2a00_01_VALUE_HANDLE:
+        // 通过标准GAP设备名称特征值修改蓝牙名称
+        if (buffer_size > 0 && buffer_size <= BT_NAME_LEN_MAX) {
+            char new_name[BT_NAME_LEN_MAX + 1];
+            u8 name_len = 0;
+            memcpy(new_name, buffer, buffer_size);
+            new_name[buffer_size] = '\0';
+            name_len = buffer_size + 1; 
+            
+            log_info("Set BLE name via 0x2A00: %s (len=%d)\n", new_name, buffer_size);
+             
+            // 更新本地蓝牙名称配置
+            bt_set_local_name(new_name, name_len); //
+            
+            // 保存到系统配置,掉电后保持
+            syscfg_write(CFG_BT_NAME, new_name, name_len);
+            
+            // 重新配置BLE广播名称(用于下次广播时生效)
+            ble_comm_set_config_name(new_name, 0); // 0-不添加BLE后缀
+            
+            // 在连接状态下广播默认关闭，可以直接修改广播数据
+            // 重要:重新生成广播数据,使新名称生效
+            multi_adv_config_set(); 
+
+            // 主动请求断开连接，让app重新连接
+            ble_op_disconnect(connection_handle);
+
+            log_info("BLE name updated successfully\n");
+        } else {
+            log_info("Invalid name length: %d\n", buffer_size);
+        }
         break;
 
     case ATT_CHARACTERISTIC_2a05_01_CLIENT_CONFIGURATION_HANDLE:
